@@ -1666,6 +1666,26 @@ svg [data-tap]:not(.tapped),.tapwrap svg [data-tap]:not(.tapped){animation:tapGl
 /* ===== model belajar Kartu Kilat ===== */
 .head{flex-wrap:wrap}.head h2{flex:1 1 150px;min-width:0}
 .mc{min-width:84px}
+.fbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:-4px 0 10px}
+.btn.bk{min-height:44px;font-size:16px}.fm{font-weight:800;color:var(--muted)}
+.stps{display:flex;gap:6px;margin:4px 0 12px}
+.stp{flex:1;min-height:44px;border-radius:999px;border:2px solid var(--line);background:var(--card);color:var(--muted);font-weight:800;font-size:14px;padding:0 6px}
+.stp.done{background:var(--okbg);color:var(--ok);border-color:transparent}.stp.done::before{content:"\2713  "}
+.stp.cur{background:var(--b);color:#fff;border-color:var(--b)}
+.stp:disabled{opacity:.55}
+.big2{width:100%;min-height:58px;font-size:20px;margin-top:12px}
+.mph{font-size:26px;margin:4px 0 2px}
+.path{display:grid;gap:10px;margin:6px 0 14px}
+.pt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:3px solid var(--line);background:var(--card);border-radius:20px;padding:12px 14px;color:var(--ink);font:inherit}
+.pt .pn{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 22px 'Fredoka',sans-serif;flex:none}
+.pt .px{flex:1;font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;line-height:1.25}
+.pt .ps{flex:none;font-weight:800;font-size:15px;border-radius:999px;padding:6px 12px;background:var(--line)}
+.pt.go{border-color:var(--b);box-shadow:0 0 0 4px var(--tb)}.pt.go .ps{background:var(--b);color:#fff;animation:pulse 1.4s infinite}
+.pt.ok .ps{background:var(--ty);color:#8A6A00}.pt.lock{opacity:.6}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.mapb{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mapb .btn{min-height:56px;font-size:18px}
+.nxb{margin-top:12px;background:var(--okbg);border-radius:18px;padding:14px;text-align:center}
+.nxb p{margin:0 0 8px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:22px}
 .kl{background:var(--tb);border-radius:20px;padding:12px;margin-top:4px}
 .klt{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:800;font-size:15px;color:var(--muted);margin-bottom:8px}
 .kd{display:flex;gap:5px}.kd i{width:14px;height:14px;border-radius:50%;background:var(--line)}.kd i.on{background:var(--g)}.kd i.cur{background:var(--b);transform:scale(1.25)}
@@ -1756,59 +1776,67 @@ svg [data-tap]:not(.tapped),.tapwrap svg [data-tap]:not(.tapped){animation:tapGl
 
 <main class="wrap">
 <section id="v-belajar">
-  <div class="how" aria-label="Cara belajar">
-    <div><b>1 🃏</b>Baca kartu kilat</div><div><b>2 ✋</b>Jawab cek cepat</div><div><b>3 ⭐</b>Main, dapat bintang</div>
-  </div>
+  <div id="map">
   <div class="warm" id="warm" hidden></div>
-  <div class="chips" id="chips" aria-label="Pilih materi"></div>
+  <h2 class="mph">🗺️ Peta belajar Barra</h2>
+  <p class="lead">Belajar satu per satu. Ketuk materi yang ada tanda <b>▶ Mulai</b>.</p>
+  <div class="path" id="path"></div>
+  <div class="mapb"><button class="btn" type="button" data-hfopen="1">🃏 Kartu hafalan</button><button class="btn main" type="button" data-v="latihan">✏️ Latihan soal</button></div>
+  </div>
+  <div class="chips" id="chips" hidden aria-hidden="true"></div>
 
-  <article class="card" id="m1">
+  <article class="card mat" id="m1" hidden data-title="Bilangan 1 sampai 10">
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button><span class="fm">Materi 1</span></div>
     <div class="head"><span class="num" style="background:#E8742C">1</span><h2>Bilangan 1 sampai 10</h2><span class="badge">Belum dapat bintang</span></div>
+    <div class="stps"><button type="button" class="stp" data-st="kilat">1. Kartu kilat</button><button type="button" class="stp" data-st="main">2. Main ⭐</button></div>
     
-    <div id="k1"></div>
-    
-    <div class="act"><h3>Permainan: bilangan 1 sampai 10</h3><div class="glock" id="lk1"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat di atas dulu, nanti permainannya terbuka!</span></div><div id="g1" hidden></div><p class="msg" id="s1" aria-live="polite"></p></div>
+    <section class="st" data-s="kilat"><div id="k1"></div></section>
+    <section class="st" data-s="main"><div class="act"><h3>Permainan: bilangan 1 sampai 10</h3><div class="glock" id="lk1"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat dulu, nanti permainannya terbuka!</span></div><div id="g1" hidden></div><p class="msg" id="s1" aria-live="polite"></p></div><div id="nx1"></div></section>
   </article>
-  <article class="card" id="m2">
+  <article class="card mat" id="m2" hidden data-title="Membandingkan">
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button><span class="fm">Materi 2</span></div>
     <div class="head"><span class="num" style="background:#1E7A50">2</span><h2>Membandingkan</h2><span class="badge">Belum dapat bintang</span></div>
+    <div class="stps"><button type="button" class="stp" data-st="kilat">1. Kartu kilat</button><button type="button" class="stp" data-st="main">2. Main ⭐</button></div>
     
-    <div id="k2"></div>
-    
-    <div class="act"><h3>Permainan: membandingkan</h3><div class="glock" id="lk2"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat di atas dulu, nanti permainannya terbuka!</span></div><div id="g2" hidden></div><p class="msg" id="s2" aria-live="polite"></p></div>
+    <section class="st" data-s="kilat"><div id="k2"></div></section>
+    <section class="st" data-s="main"><div class="act"><h3>Permainan: membandingkan</h3><div class="glock" id="lk2"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat dulu, nanti permainannya terbuka!</span></div><div id="g2" hidden></div><p class="msg" id="s2" aria-live="polite"></p></div><div id="nx2"></div></section>
   </article>
-  <article class="card" id="m3">
+  <article class="card mat" id="m3" hidden data-title="Penjumlahan">
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button><span class="fm">Materi 3</span></div>
     <div class="head"><span class="num" style="background:#1F4FA8">3</span><h2>Penjumlahan</h2><span class="badge">Belum dapat bintang</span></div>
-    
-    <div id="k3"></div>
-    <div class="wd"><p class="wdh">🧮 Mesin tambah: ubah angkanya, lalu ketuk Hitung!</p>
+    <div class="stps"><button type="button" class="stp" data-st="intro">1. Coba dulu</button><button type="button" class="stp" data-st="kilat">2. Kartu kilat</button><button type="button" class="stp" data-st="main">3. Main ⭐</button></div>
+    <section class="st" data-s="intro"><div class="wd"><p class="wdh">🧮 Mesin tambah: ubah angkanya, lalu ketuk Hitung!</p>
       <div class="mach"><div class="mc"><div class="nb"><button type="button" data-mc="a-" aria-label="Kurangi angka pertama">−</button><b id="ma">2</b><button type="button" data-mc="a+" aria-label="Tambah angka pertama">+</button></div><div class="em" id="mea"></div></div>
       <span class="op">+</span><div class="mc"><div class="nb"><button type="button" data-mc="b-" aria-label="Kurangi angka kedua">−</button><b id="mb">3</b><button type="button" data-mc="b+" aria-label="Tambah angka kedua">+</button></div><div class="em" id="meb"></div></div>
       <span class="op">=</span><div class="mc"><div class="nb"><b id="mr">?</b></div><div class="em" id="mer"></div></div></div>
-      <div class="center" style="margin-top:8px"><button class="btn main" type="button" id="mgo">Hitung!</button></div><p class="msg center" id="mgm" aria-live="polite"></p></div>
-    <div class="act"><h3>Permainan: penjumlahan</h3><div class="glock" id="lk3"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat di atas dulu, nanti permainannya terbuka!</span></div><div id="g3" hidden></div><p class="msg" id="s3" aria-live="polite"></p></div>
+      <div class="center" style="margin-top:8px"><button class="btn main" type="button" id="mgo">Hitung!</button></div><p class="msg center" id="mgm" aria-live="polite"></p></div><button class="btn main big2" type="button" data-goto="kilat">Lanjut ke kartu kilat ➜</button></section>
+    <section class="st" data-s="kilat"><div id="k3"></div></section>
+    <section class="st" data-s="main"><div class="act"><h3>Permainan: penjumlahan</h3><div class="glock" id="lk3"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat dulu, nanti permainannya terbuka!</span></div><div id="g3" hidden></div><p class="msg" id="s3" aria-live="polite"></p></div><div id="nx3"></div></section>
   </article>
-  <article class="card" id="m4">
+  <article class="card mat" id="m4" hidden data-title="Pengurangan">
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button><span class="fm">Materi 4</span></div>
     <div class="head"><span class="num" style="background:#B42318">4</span><h2>Pengurangan</h2><span class="badge">Belum dapat bintang</span></div>
-    
-    <div id="k4"></div>
-    <div class="wd"><p class="wdh" id="ekq">🍪 Makan kuenya!</p><div class="cookies" id="ekc"></div><p class="msg center" id="ekm" aria-live="polite"></p><div class="center"><button class="btn" type="button" id="ekn">Soal lain</button></div></div>
-    <div class="act"><h3>Permainan: pengurangan</h3><div class="glock" id="lk4"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat di atas dulu, nanti permainannya terbuka!</span></div><div id="g4" hidden></div><p class="msg" id="s4" aria-live="polite"></p></div>
+    <div class="stps"><button type="button" class="stp" data-st="intro">1. Coba dulu</button><button type="button" class="stp" data-st="kilat">2. Kartu kilat</button><button type="button" class="stp" data-st="main">3. Main ⭐</button></div>
+    <section class="st" data-s="intro"><div class="wd"><p class="wdh" id="ekq">🍪 Makan kuenya!</p><div class="cookies" id="ekc"></div><p class="msg center" id="ekm" aria-live="polite"></p><div class="center"><button class="btn" type="button" id="ekn">Soal lain</button></div></div><button class="btn main big2" type="button" data-goto="kilat">Lanjut ke kartu kilat ➜</button></section>
+    <section class="st" data-s="kilat"><div id="k4"></div></section>
+    <section class="st" data-s="main"><div class="act"><h3>Permainan: pengurangan</h3><div class="glock" id="lk4"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat dulu, nanti permainannya terbuka!</span></div><div id="g4" hidden></div><p class="msg" id="s4" aria-live="polite"></p></div><div id="nx4"></div></section>
   </article>
-  <article class="card" id="m5">
+  <article class="card mat" id="m5" hidden data-title="Bangun datar">
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button><span class="fm">Materi 5</span></div>
     <div class="head"><span class="num" style="background:#7A3FB8">5</span><h2>Bangun datar</h2><span class="badge">Belum dapat bintang</span></div>
+    <div class="stps"><button type="button" class="stp" data-st="kilat">1. Kartu kilat</button><button type="button" class="stp" data-st="main">2. Main ⭐</button></div>
     
-    <div id="k5"></div>
-    
-    <div class="act"><h3>Permainan: bangun datar</h3><div class="glock" id="lk5"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat di atas dulu, nanti permainannya terbuka!</span></div><div id="g5" hidden></div><p class="msg" id="s5" aria-live="polite"></p></div>
+    <section class="st" data-s="kilat"><div id="k5"></div></section>
+    <section class="st" data-s="main"><div class="act"><h3>Permainan: bangun datar</h3><div class="glock" id="lk5"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat dulu, nanti permainannya terbuka!</span></div><div id="g5" hidden></div><p class="msg" id="s5" aria-live="polite"></p></div><div id="nx5"></div></section>
   </article>
-  <article class="card" id="hf">
+  <article class="card" id="hf" hidden>
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button></div>
     <div class="head"><span class="num" style="background:#B88A10">★</span><h2>Kartu hafalan</h2></div>
     <p class="lead">Ketuk kartu untuk melihat jawabannya. Bagus diulang bersama Ayah atau Bunda sebelum tidur.</p>
     <div class="hff" id="hff"></div>
     <div class="hfg" id="hfg"></div>
   </article>
 
-  <div class="center"><button class="btn main" data-v="latihan" style="font-size:20px;min-height:56px">Sudah paham? Ayo latihan soal!</button></div>
 </section>
 
 <section id="v-latihan" hidden>
@@ -2005,6 +2033,26 @@ svg [data-tap]:not(.tapped),.tapwrap svg [data-tap]:not(.tapped){animation:tapGl
 /* ===== model belajar Kartu Kilat ===== */
 .head{flex-wrap:wrap}.head h2{flex:1 1 150px;min-width:0}
 .mc{min-width:84px}
+.fbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:-4px 0 10px}
+.btn.bk{min-height:44px;font-size:16px}.fm{font-weight:800;color:var(--muted)}
+.stps{display:flex;gap:6px;margin:4px 0 12px}
+.stp{flex:1;min-height:44px;border-radius:999px;border:2px solid var(--line);background:var(--card);color:var(--muted);font-weight:800;font-size:14px;padding:0 6px}
+.stp.done{background:var(--okbg);color:var(--ok);border-color:transparent}.stp.done::before{content:"\2713  "}
+.stp.cur{background:var(--b);color:#fff;border-color:var(--b)}
+.stp:disabled{opacity:.55}
+.big2{width:100%;min-height:58px;font-size:20px;margin-top:12px}
+.mph{font-size:26px;margin:4px 0 2px}
+.path{display:grid;gap:10px;margin:6px 0 14px}
+.pt{display:flex;align-items:center;gap:12px;width:100%;text-align:left;border:3px solid var(--line);background:var(--card);border-radius:20px;padding:12px 14px;color:var(--ink);font:inherit}
+.pt .pn{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 22px 'Fredoka',sans-serif;flex:none}
+.pt .px{flex:1;font-family:'Fredoka',sans-serif;font-weight:600;font-size:20px;line-height:1.25}
+.pt .ps{flex:none;font-weight:800;font-size:15px;border-radius:999px;padding:6px 12px;background:var(--line)}
+.pt.go{border-color:var(--b);box-shadow:0 0 0 4px var(--tb)}.pt.go .ps{background:var(--b);color:#fff;animation:pulse 1.4s infinite}
+.pt.ok .ps{background:var(--ty);color:#8A6A00}.pt.lock{opacity:.6}
+@keyframes pulse{50%{transform:scale(1.08)}}
+.mapb{display:grid;grid-template-columns:1fr 1fr;gap:10px}.mapb .btn{min-height:56px;font-size:18px}
+.nxb{margin-top:12px;background:var(--okbg);border-radius:18px;padding:14px;text-align:center}
+.nxb p{margin:0 0 8px;font-family:'Fredoka',sans-serif;font-weight:600;font-size:22px}
 .kl{background:var(--tb);border-radius:20px;padding:12px;margin-top:4px}
 .klt{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:800;font-size:15px;color:var(--muted);margin-bottom:8px}
 .kd{display:flex;gap:5px}.kd i{width:14px;height:14px;border-radius:50%;background:var(--line)}.kd i.on{background:var(--g)}.kd i.cur{background:var(--b);transform:scale(1.25)}
@@ -2096,69 +2144,79 @@ svg [data-tap]:not(.tapped),.tapwrap svg [data-tap]:not(.tapped){animation:tapGl
 
 <main class="wrap">
 <section id="v-belajar">
-  <div class="how" aria-label="Cara belajar">
-    <div><b>1 🃏</b>Baca kartu kilat</div><div><b>2 ✋</b>Jawab cek cepat</div><div><b>3 ⭐</b>Main, dapat bintang</div>
-  </div>
+  <div id="map">
   <div class="warm" id="warm" hidden></div>
-  <div class="chips" id="chips" aria-label="Pilih materi"></div>
+  <h2 class="mph">🗺️ Peta belajar Barra</h2>
+  <p class="lead">Belajar satu per satu. Ketuk materi yang ada tanda <b>▶ Mulai</b>.</p>
+  <div class="path" id="path"></div>
+  <div class="mapb"><button class="btn" type="button" data-hfopen="1">🃏 Kartu hafalan</button><button class="btn main" type="button" data-v="latihan">✏️ Latihan soal</button></div>
+  </div>
+  <div class="chips" id="chips" hidden aria-hidden="true"></div>
 
-  <article class="card" id="m1">
+  <article class="card mat" id="m1" hidden data-title="Huruf hijaiyah">
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button><span class="fm">Materi 1</span></div>
     <div class="head"><span class="num" style="background:#145238">1</span><h2>Huruf hijaiyah</h2><span class="badge">Belum dapat bintang</span></div>
-    <div class="wd"><p class="wdh">🔤 Ketuk huruf untuk mendengar namanya</p><div class="hjg" id="hjg"></div><div class="hjb" id="hjb" aria-live="polite"><span class="hint">Ketuk salah satu huruf</span></div></div>
-    <div id="k1"></div>
-    
-    <div class="act"><h3>Permainan: huruf hijaiyah</h3><div class="glock" id="lk1"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat di atas dulu, nanti permainannya terbuka!</span></div><div id="g1" hidden></div><p class="msg" id="s1" aria-live="polite"></p></div>
+    <div class="stps"><button type="button" class="stp" data-st="intro">1. Coba dulu</button><button type="button" class="stp" data-st="kilat">2. Kartu kilat</button><button type="button" class="stp" data-st="main">3. Main ⭐</button></div>
+    <section class="st" data-s="intro"><div class="wd"><p class="wdh">🔤 Ketuk huruf untuk mendengar namanya</p><div class="hjg" id="hjg"></div><div class="hjb" id="hjb" aria-live="polite"><span class="hint">Ketuk salah satu huruf</span></div></div><button class="btn main big2" type="button" data-goto="kilat">Lanjut ke kartu kilat ➜</button></section>
+    <section class="st" data-s="kilat"><div id="k1"></div></section>
+    <section class="st" data-s="main"><div class="act"><h3>Permainan: huruf hijaiyah</h3><div class="glock" id="lk1"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat dulu, nanti permainannya terbuka!</span></div><div id="g1" hidden></div><p class="msg" id="s1" aria-live="polite"></p></div><div id="nx1"></div></section>
   </article>
-  <article class="card" id="m2">
+  <article class="card mat" id="m2" hidden data-title="Harakat: fathah, kasrah, dhammah">
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button><span class="fm">Materi 2</span></div>
     <div class="head"><span class="num" style="background:#1F4FA8">2</span><h2>Harakat: fathah, kasrah, dhammah</h2><span class="badge">Belum dapat bintang</span></div>
-    <div class="wd"><p class="wdh">🎛️ Pilih huruf, lalu pilih harakatnya</p><div class="hrk" id="hrl"></div><div class="hrk" id="hrh"><button type="button" data-h="a" aria-pressed="true">Fathah (a)</button><button type="button" data-h="i" aria-pressed="false">Kasrah (i)</button><button type="button" data-h="u" aria-pressed="false">Dhammah (u)</button></div><div class="hjb" id="hrb" aria-live="polite"></div></div>
-    <div id="k2"></div>
-    
-    <div class="act"><h3>Permainan: harakat: fathah, kasrah, dhammah</h3><div class="glock" id="lk2"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat di atas dulu, nanti permainannya terbuka!</span></div><div id="g2" hidden></div><p class="msg" id="s2" aria-live="polite"></p></div>
+    <div class="stps"><button type="button" class="stp" data-st="intro">1. Coba dulu</button><button type="button" class="stp" data-st="kilat">2. Kartu kilat</button><button type="button" class="stp" data-st="main">3. Main ⭐</button></div>
+    <section class="st" data-s="intro"><div class="wd"><p class="wdh">🎛️ Pilih huruf, lalu pilih harakatnya</p><div class="hrk" id="hrl"></div><div class="hrk" id="hrh"><button type="button" data-h="a" aria-pressed="true">Fathah (a)</button><button type="button" data-h="i" aria-pressed="false">Kasrah (i)</button><button type="button" data-h="u" aria-pressed="false">Dhammah (u)</button></div><div class="hjb" id="hrb" aria-live="polite"></div></div><button class="btn main big2" type="button" data-goto="kilat">Lanjut ke kartu kilat ➜</button></section>
+    <section class="st" data-s="kilat"><div id="k2"></div></section>
+    <section class="st" data-s="main"><div class="act"><h3>Permainan: harakat: fathah, kasrah, dhammah</h3><div class="glock" id="lk2"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat dulu, nanti permainannya terbuka!</span></div><div id="g2" hidden></div><p class="msg" id="s2" aria-live="polite"></p></div><div id="nx2"></div></section>
   </article>
-  <article class="card" id="m3">
+  <article class="card mat" id="m3" hidden data-title="Surah Al-Fātiḥah">
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button><span class="fm">Materi 3</span></div>
     <div class="head"><span class="num" style="background:#B4500D">3</span><h2>Surah Al-Fātiḥah</h2><span class="badge">Belum dapat bintang</span></div>
-    <div class="sinfo"><span>📖 Al-Fātiḥah</span><span>7 ayat</span><span>Arti: Pembukaan</span></div><p class="lead">Baca bersama Ayah atau Bunda. <b>Ketuk ayat</b> yang sedang dibaca.</p><ol class="ayat"><li><span class="ar">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</span><span class="no">1</span></li><li><span class="ar">اَلْحَمْدُ لِلّٰهِ رَبِّ الْعٰلَمِيْنَ</span><span class="no">2</span></li><li><span class="ar">الرَّحْمٰنِ الرَّحِيْمِ</span><span class="no">3</span></li><li><span class="ar">مٰلِكِ يَوْمِ الدِّيْنِ</span><span class="no">4</span></li><li><span class="ar">اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُ</span><span class="no">5</span></li><li><span class="ar">اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَ</span><span class="no">6</span></li><li><span class="ar">صِرَاطَ الَّذِيْنَ اَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوْبِ عَلَيْهِمْ وَلَا الضَّآلِّيْنَ</span><span class="no">7</span></li></ol><p class="lead" style="margin:10px 0 4px"><b>Sekarang kartu kilatnya:</b></p>
-    <div id="k3"></div>
-    
-    <div class="act"><h3>Permainan: surah al-fātiḥah</h3><div class="glock" id="lk3"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat di atas dulu, nanti permainannya terbuka!</span></div><div id="g3" hidden></div><p class="msg" id="s3" aria-live="polite"></p></div>
+    <div class="stps"><button type="button" class="stp" data-st="intro">1. Baca bersama</button><button type="button" class="stp" data-st="kilat">2. Kartu kilat</button><button type="button" class="stp" data-st="main">3. Main ⭐</button></div>
+    <section class="st" data-s="intro"><div class="sinfo"><span>📖 Al-Fātiḥah</span><span>7 ayat</span><span>Arti: Pembukaan</span></div><p class="lead">Baca bersama Ayah atau Bunda. <b>Ketuk ayat</b> yang sedang dibaca.</p><ol class="ayat"><li><span class="ar">بِسْمِ اللّٰهِ الرَّحْمٰنِ الرَّحِيْمِ</span><span class="no">1</span></li><li><span class="ar">اَلْحَمْدُ لِلّٰهِ رَبِّ الْعٰلَمِيْنَ</span><span class="no">2</span></li><li><span class="ar">الرَّحْمٰنِ الرَّحِيْمِ</span><span class="no">3</span></li><li><span class="ar">مٰلِكِ يَوْمِ الدِّيْنِ</span><span class="no">4</span></li><li><span class="ar">اِيَّاكَ نَعْبُدُ وَاِيَّاكَ نَسْتَعِيْنُ</span><span class="no">5</span></li><li><span class="ar">اِهْدِنَا الصِّرَاطَ الْمُسْتَقِيْمَ</span><span class="no">6</span></li><li><span class="ar">صِرَاطَ الَّذِيْنَ اَنْعَمْتَ عَلَيْهِمْ غَيْرِ الْمَغْضُوْبِ عَلَيْهِمْ وَلَا الضَّآلِّيْنَ</span><span class="no">7</span></li></ol><button class="btn main big2" type="button" data-goto="kilat">Lanjut ke kartu kilat ➜</button></section>
+    <section class="st" data-s="kilat"><div id="k3"></div></section>
+    <section class="st" data-s="main"><div class="act"><h3>Permainan: surah al-fātiḥah</h3><div class="glock" id="lk3"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat dulu, nanti permainannya terbuka!</span></div><div id="g3" hidden></div><p class="msg" id="s3" aria-live="polite"></p></div><div id="nx3"></div></section>
   </article>
-  <article class="card" id="m4">
+  <article class="card mat" id="m4" hidden data-title="Surah Al-Ikhlāṣ">
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button><span class="fm">Materi 4</span></div>
     <div class="head"><span class="num" style="background:#0F7C80">4</span><h2>Surah Al-Ikhlāṣ</h2><span class="badge">Belum dapat bintang</span></div>
-    <div class="sinfo"><span>📖 Al-Ikhlāṣ</span><span>4 ayat</span><span>Arti: Memurnikan keesaan Allah</span></div><p class="lead">Baca bersama Ayah atau Bunda. <b>Ketuk ayat</b> yang sedang dibaca.</p><ol class="ayat"><li><span class="ar">قُلْ هُوَ اللّٰهُ اَحَدٌ</span><span class="no">1</span></li><li><span class="ar">اَللّٰهُ الصَّمَدُ</span><span class="no">2</span></li><li><span class="ar">لَمْ يَلِدْ وَلَمْ يُوْلَدْ</span><span class="no">3</span></li><li><span class="ar">وَلَمْ يَكُنْ لَّهٗ كُفُوًا اَحَدٌ</span><span class="no">4</span></li></ol><p class="lead" style="margin:10px 0 4px"><b>Sekarang kartu kilatnya:</b></p>
-    <div id="k4"></div>
-    
-    <div class="act"><h3>Permainan: surah al-ikhlāṣ</h3><div class="glock" id="lk4"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat di atas dulu, nanti permainannya terbuka!</span></div><div id="g4" hidden></div><p class="msg" id="s4" aria-live="polite"></p></div>
+    <div class="stps"><button type="button" class="stp" data-st="intro">1. Baca bersama</button><button type="button" class="stp" data-st="kilat">2. Kartu kilat</button><button type="button" class="stp" data-st="main">3. Main ⭐</button></div>
+    <section class="st" data-s="intro"><div class="sinfo"><span>📖 Al-Ikhlāṣ</span><span>4 ayat</span><span>Arti: Memurnikan keesaan Allah</span></div><p class="lead">Baca bersama Ayah atau Bunda. <b>Ketuk ayat</b> yang sedang dibaca.</p><ol class="ayat"><li><span class="ar">قُلْ هُوَ اللّٰهُ اَحَدٌ</span><span class="no">1</span></li><li><span class="ar">اَللّٰهُ الصَّمَدُ</span><span class="no">2</span></li><li><span class="ar">لَمْ يَلِدْ وَلَمْ يُوْلَدْ</span><span class="no">3</span></li><li><span class="ar">وَلَمْ يَكُنْ لَّهٗ كُفُوًا اَحَدٌ</span><span class="no">4</span></li></ol><button class="btn main big2" type="button" data-goto="kilat">Lanjut ke kartu kilat ➜</button></section>
+    <section class="st" data-s="kilat"><div id="k4"></div></section>
+    <section class="st" data-s="main"><div class="act"><h3>Permainan: surah al-ikhlāṣ</h3><div class="glock" id="lk4"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat dulu, nanti permainannya terbuka!</span></div><div id="g4" hidden></div><p class="msg" id="s4" aria-live="polite"></p></div><div id="nx4"></div></section>
   </article>
-  <article class="card" id="m5">
+  <article class="card mat" id="m5" hidden data-title="Surah An-Nās">
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button><span class="fm">Materi 5</span></div>
     <div class="head"><span class="num" style="background:#7A3FB8">5</span><h2>Surah An-Nās</h2><span class="badge">Belum dapat bintang</span></div>
-    <div class="sinfo"><span>📖 An-Nās</span><span>6 ayat</span><span>Arti: Manusia</span></div><p class="lead">Baca bersama Ayah atau Bunda. <b>Ketuk ayat</b> yang sedang dibaca.</p><ol class="ayat"><li><span class="ar">قُلْ اَعُوْذُ بِرَبِّ النَّاسِ</span><span class="no">1</span></li><li><span class="ar">مَلِكِ النَّاسِ</span><span class="no">2</span></li><li><span class="ar">اِلٰهِ النَّاسِ</span><span class="no">3</span></li><li><span class="ar">مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ</span><span class="no">4</span></li><li><span class="ar">الَّذِيْ يُوَسْوِسُ فِيْ صُدُوْرِ النَّاسِ</span><span class="no">5</span></li><li><span class="ar">مِنَ الْجِنَّةِ وَالنَّاسِ</span><span class="no">6</span></li></ol><p class="lead" style="margin:10px 0 4px"><b>Sekarang kartu kilatnya:</b></p>
-    <div id="k5"></div>
-    
-    <div class="act"><h3>Permainan: surah an-nās</h3><div class="glock" id="lk5"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat di atas dulu, nanti permainannya terbuka!</span></div><div id="g5" hidden></div><p class="msg" id="s5" aria-live="polite"></p></div>
+    <div class="stps"><button type="button" class="stp" data-st="intro">1. Baca bersama</button><button type="button" class="stp" data-st="kilat">2. Kartu kilat</button><button type="button" class="stp" data-st="main">3. Main ⭐</button></div>
+    <section class="st" data-s="intro"><div class="sinfo"><span>📖 An-Nās</span><span>6 ayat</span><span>Arti: Manusia</span></div><p class="lead">Baca bersama Ayah atau Bunda. <b>Ketuk ayat</b> yang sedang dibaca.</p><ol class="ayat"><li><span class="ar">قُلْ اَعُوْذُ بِرَبِّ النَّاسِ</span><span class="no">1</span></li><li><span class="ar">مَلِكِ النَّاسِ</span><span class="no">2</span></li><li><span class="ar">اِلٰهِ النَّاسِ</span><span class="no">3</span></li><li><span class="ar">مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ</span><span class="no">4</span></li><li><span class="ar">الَّذِيْ يُوَسْوِسُ فِيْ صُدُوْرِ النَّاسِ</span><span class="no">5</span></li><li><span class="ar">مِنَ الْجِنَّةِ وَالنَّاسِ</span><span class="no">6</span></li></ol><button class="btn main big2" type="button" data-goto="kilat">Lanjut ke kartu kilat ➜</button></section>
+    <section class="st" data-s="kilat"><div id="k5"></div></section>
+    <section class="st" data-s="main"><div class="act"><h3>Permainan: surah an-nās</h3><div class="glock" id="lk5"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat dulu, nanti permainannya terbuka!</span></div><div id="g5" hidden></div><p class="msg" id="s5" aria-live="polite"></p></div><div id="nx5"></div></section>
   </article>
-  <article class="card" id="m6">
+  <article class="card mat" id="m6" hidden data-title="Surah Al-Falaq">
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button><span class="fm">Materi 6</span></div>
     <div class="head"><span class="num" style="background:#C2560F">6</span><h2>Surah Al-Falaq</h2><span class="badge">Belum dapat bintang</span></div>
-    <div class="sinfo"><span>📖 Al-Falaq</span><span>5 ayat</span><span>Arti: Waktu subuh</span></div><p class="lead">Baca bersama Ayah atau Bunda. <b>Ketuk ayat</b> yang sedang dibaca.</p><ol class="ayat"><li><span class="ar">قُلْ اَعُوْذُ بِرَبِّ الْفَلَقِ</span><span class="no">1</span></li><li><span class="ar">مِنْ شَرِّ مَا خَلَقَ</span><span class="no">2</span></li><li><span class="ar">وَمِنْ شَرِّ غَاسِقٍ اِذَا وَقَبَ</span><span class="no">3</span></li><li><span class="ar">وَمِنْ شَرِّ النَّفّٰثٰتِ فِى الْعُقَدِ</span><span class="no">4</span></li><li><span class="ar">وَمِنْ شَرِّ حَاسِدٍ اِذَا حَسَدَ</span><span class="no">5</span></li></ol><p class="lead" style="margin:10px 0 4px"><b>Sekarang kartu kilatnya:</b></p>
-    <div id="k6"></div>
-    
-    <div class="act"><h3>Permainan: surah al-falaq</h3><div class="glock" id="lk6"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat di atas dulu, nanti permainannya terbuka!</span></div><div id="g6" hidden></div><p class="msg" id="s6" aria-live="polite"></p></div>
+    <div class="stps"><button type="button" class="stp" data-st="intro">1. Baca bersama</button><button type="button" class="stp" data-st="kilat">2. Kartu kilat</button><button type="button" class="stp" data-st="main">3. Main ⭐</button></div>
+    <section class="st" data-s="intro"><div class="sinfo"><span>📖 Al-Falaq</span><span>5 ayat</span><span>Arti: Waktu subuh</span></div><p class="lead">Baca bersama Ayah atau Bunda. <b>Ketuk ayat</b> yang sedang dibaca.</p><ol class="ayat"><li><span class="ar">قُلْ اَعُوْذُ بِرَبِّ الْفَلَقِ</span><span class="no">1</span></li><li><span class="ar">مِنْ شَرِّ مَا خَلَقَ</span><span class="no">2</span></li><li><span class="ar">وَمِنْ شَرِّ غَاسِقٍ اِذَا وَقَبَ</span><span class="no">3</span></li><li><span class="ar">وَمِنْ شَرِّ النَّفّٰثٰتِ فِى الْعُقَدِ</span><span class="no">4</span></li><li><span class="ar">وَمِنْ شَرِّ حَاسِدٍ اِذَا حَسَدَ</span><span class="no">5</span></li></ol><button class="btn main big2" type="button" data-goto="kilat">Lanjut ke kartu kilat ➜</button></section>
+    <section class="st" data-s="kilat"><div id="k6"></div></section>
+    <section class="st" data-s="main"><div class="act"><h3>Permainan: surah al-falaq</h3><div class="glock" id="lk6"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat dulu, nanti permainannya terbuka!</span></div><div id="g6" hidden></div><p class="msg" id="s6" aria-live="polite"></p></div><div id="nx6"></div></section>
   </article>
-  <article class="card" id="m7">
+  <article class="card mat" id="m7" hidden data-title="Surah Al-Lahab">
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button><span class="fm">Materi 7</span></div>
     <div class="head"><span class="num" style="background:#B42318">7</span><h2>Surah Al-Lahab</h2><span class="badge">Belum dapat bintang</span></div>
-    <div class="sinfo"><span>📖 Al-Lahab</span><span>5 ayat</span><span>Arti: Gejolak api</span></div><p class="lead">Baca bersama Ayah atau Bunda. <b>Ketuk ayat</b> yang sedang dibaca.</p><ol class="ayat"><li><span class="ar">تَبَّتْ يَدَآ اَبِيْ لَهَبٍ وَّتَبَّ</span><span class="no">1</span></li><li><span class="ar">مَآ اَغْنٰى عَنْهُ مَالُهٗ وَمَا كَسَبَ</span><span class="no">2</span></li><li><span class="ar">سَيَصْلٰى نَارًا ذَاتَ لَهَبٍ</span><span class="no">3</span></li><li><span class="ar">وَّامْرَاَتُهٗ حَمَّالَةَ الْحَطَبِ</span><span class="no">4</span></li><li><span class="ar">فِيْ جِيْدِهَا حَبْلٌ مِّنْ مَّسَدٍ</span><span class="no">5</span></li></ol><p class="lead" style="margin:10px 0 4px"><b>Sekarang kartu kilatnya:</b></p>
-    <div id="k7"></div>
-    
-    <div class="act"><h3>Permainan: surah al-lahab</h3><div class="glock" id="lk7"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat di atas dulu, nanti permainannya terbuka!</span></div><div id="g7" hidden></div><p class="msg" id="s7" aria-live="polite"></p></div>
+    <div class="stps"><button type="button" class="stp" data-st="intro">1. Baca bersama</button><button type="button" class="stp" data-st="kilat">2. Kartu kilat</button><button type="button" class="stp" data-st="main">3. Main ⭐</button></div>
+    <section class="st" data-s="intro"><div class="sinfo"><span>📖 Al-Lahab</span><span>5 ayat</span><span>Arti: Gejolak api</span></div><p class="lead">Baca bersama Ayah atau Bunda. <b>Ketuk ayat</b> yang sedang dibaca.</p><ol class="ayat"><li><span class="ar">تَبَّتْ يَدَآ اَبِيْ لَهَبٍ وَّتَبَّ</span><span class="no">1</span></li><li><span class="ar">مَآ اَغْنٰى عَنْهُ مَالُهٗ وَمَا كَسَبَ</span><span class="no">2</span></li><li><span class="ar">سَيَصْلٰى نَارًا ذَاتَ لَهَبٍ</span><span class="no">3</span></li><li><span class="ar">وَّامْرَاَتُهٗ حَمَّالَةَ الْحَطَبِ</span><span class="no">4</span></li><li><span class="ar">فِيْ جِيْدِهَا حَبْلٌ مِّنْ مَّسَدٍ</span><span class="no">5</span></li></ol><button class="btn main big2" type="button" data-goto="kilat">Lanjut ke kartu kilat ➜</button></section>
+    <section class="st" data-s="kilat"><div id="k7"></div></section>
+    <section class="st" data-s="main"><div class="act"><h3>Permainan: surah al-lahab</h3><div class="glock" id="lk7"><span class="gi" aria-hidden="true">🔒</span><span class="gt">Selesaikan kartu kilat dulu, nanti permainannya terbuka!</span></div><div id="g7" hidden></div><p class="msg" id="s7" aria-live="polite"></p></div><div id="nx7"></div></section>
   </article>
-  <article class="card" id="hf">
+  <article class="card" id="hf" hidden>
+    <div class="fbar"><button type="button" class="btn bk" data-map="1">&#8592; Peta belajar</button></div>
     <div class="head"><span class="num" style="background:#B88A10">★</span><h2>Kartu hafalan</h2></div>
     <p class="lead">Ketuk kartu untuk melihat jawabannya. Bagus diulang bersama Ayah atau Bunda sebelum tidur.</p>
     <div class="hff" id="hff"></div>
     <div class="hfg" id="hfg"></div>
   </article>
 
-  <div class="center"><button class="btn main" data-v="latihan" style="font-size:20px;min-height:56px">Sudah paham? Ayo latihan soal!</button></div>
 </section>
 
 <section id="v-latihan" hidden>
@@ -3027,7 +3085,7 @@ const NAMES=["", "Bilangan 1–10", "Membandingkan", "Penjumlahan", "Pengurangan
 $('#chips').innerHTML=NAMES.slice(1).map((n,i)=>`<button class="chip" data-go="${i+1}">${i+1}. ${n}</button>`).join('');
 let done=[];try{done=JSON.parse(store.get('mt-done')||'[]')}catch(e){}
 function paint(){$('#pc').textContent=done.length;$('#ps').innerHTML=NAMES.slice(1).map((_,i)=>`<i class="${done.includes(i+1)?'on':''}"></i>`).join('');for(let k=1;k<=5;k++){const c=$('#m'+k),on=done.includes(k);c.classList.toggle('done',on);c.querySelector('.badge').textContent=on?'Dapat bintang!':'Belum dapat bintang';document.querySelector(`[data-go="${k}"]`).classList.toggle('done',on)}}
-function award(k){if(done.includes(k))return;done.push(k);store.set('mt-done',JSON.stringify(done));paint();fanfare();toast(done.length===5?'MasyaAllah, Barra! Semua 5 bintang terkumpul!':'Hore! Barra dapat bintang materi '+k+'!')}
+function award(k){onAward(k);if(done.includes(k))return;done.push(k);store.set('mt-done',JSON.stringify(done));paint();fanfare();toast(done.length===5?'MasyaAllah, Barra! Semua 5 bintang terkumpul!':'Hore! Barra dapat bintang materi '+k+'!')}
 paint();
 
 /* tab */
@@ -3051,10 +3109,37 @@ function speak(t){if(!canSpeak)return;try{const u=new SpeechSynthesisUtterance(t
 SIG.addEventListener('abort',()=>{try{speechSynthesis.cancel()}catch(e){}});
 const strip=h=>String(h).replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/&gt;/g,'>').replace(/&lt;/g,'<').replace(/\s+/g,' ').trim();
 const started4=new Set();
+/* ===== mode fokus: satu materi, satu langkah ===== */
+const MK=Object.keys(KL).map(Number),hasIntro=k=>!!document.querySelector(`#m${k} [data-s="intro"]`);
+let curK=0;
+function stepTo(k,st){const m=$('#m'+k);
+ m.querySelectorAll('.st').forEach(x=>{x.hidden=x.dataset.s!==st});
+ const ord=['intro','kilat','main'].filter(x=>x!=='intro'||hasIntro(k)),ci=ord.indexOf(st);
+ m.querySelectorAll('.stp').forEach(b=>{const i=ord.indexOf(b.dataset.st);b.classList.toggle('cur',i===ci);b.classList.toggle('done',i<ci||(b.dataset.st==='kilat'&&kdone.includes(k))||(b.dataset.st==='main'&&done.includes(k)));b.disabled=b.dataset.st==='main'&&!kdone.includes(k)});
+ if(st==='main')unlock(k);m.scrollIntoView({behavior:'auto',block:'start'})}
+function openK(k){curK=k;$('#map').hidden=true;$('#hf').hidden=true;MK.forEach(j=>{$('#m'+j).hidden=j!==k});
+ stepTo(k,kdone.includes(k)?'main':hasIntro(k)?'intro':'kilat');if(done.includes(k))nextBtn(k)}
+function showMap(){const curK0=curK;curK=0;MK.forEach(j=>{$('#m'+j).hidden=true});$('#hf').hidden=true;$('#map').hidden=false;drawMap();if(curK0)$('#map').scrollIntoView({behavior:'auto',block:'start'})}
+function nextK(){return MK.find(k=>!done.includes(k))||0}
+function drawMap(){const nx=nextK();
+ $('#path').innerHTML=MK.map(k=>{const ok=done.includes(k),go=k===nx,lock=!ok&&!go&&MK.indexOf(k)>MK.indexOf(nx);
+  const col=getComputedStyle(document.querySelector(`#m${k} .num`)).backgroundColor;
+  return `<button type="button" class="pt ${ok?'ok':go?'go':lock?'lock':''}" data-k="${k}"><span class="pn" style="background:${col}">${k}</span><span class="px">${esc(NAMES[k])}</span><span class="ps">${ok?'⭐ Selesai':go?'▶ Mulai':lock?'🔒':'Buka'}</span></button>`}).join('')}
+function nextBtn(k){const i=MK.indexOf(k),n=MK[i+1];
+ $('#nx'+k).innerHTML=`<div class="nxb"><p>⭐ Hebat, Barra! Materi ${k} selesai.</p>${n?`<button class="btn main big2" type="button" data-open="${n}">Lanjut ke materi ${n} ➜</button>`:`<button class="btn main big2" type="button" data-v="latihan">Semua materi selesai! Ayo latihan soal ✏️</button>`}<button class="btn" type="button" data-map="1" style="margin-top:8px">Kembali ke peta</button></div>`}
+function onAward(k){setTimeout(()=>nextBtn(k),300)}
+document.addEventListener('click',e=>{
+ const pt=e.target.closest('#path .pt');if(pt){if(pt.classList.contains('lock')){shake(pt);toast('Selesaikan materi '+nextK()+' dulu ya, Barra!');return}tone(560,.1);openK(+pt.dataset.k);return}
+ if(e.target.closest('[data-map]')){showMap();return}
+ const op=e.target.closest('[data-open]');if(op){openK(+op.dataset.open);return}
+ const gt=e.target.closest('[data-goto]');if(gt&&curK){stepTo(curK,gt.dataset.goto);return}
+ const sp=e.target.closest('.stp');if(sp&&curK&&!sp.disabled){stepTo(curK,sp.dataset.st);return}
+ if(e.target.closest('[data-hfopen]')){$('#map').hidden=true;$('#hf').hidden=false;$('#hf').scrollIntoView({block:'start'})}
+},{signal:SIG});
 function unlock(k){$('#lk'+k).hidden=true;$('#g'+k).hidden=false;if(!started4.has(k)){started4.add(k);seq(k,GM[k])}}
 function kilatDone(k){const el=$('#k'+k);
- el.innerHTML=`<div class="kldone"><h3>✓ Kartu kilat selesai</h3><ul>${KL[k].map(c=>`<li>${c.t}</li>`).join('')}</ul><button class="btn" type="button">🔁 Ulangi kartu kilat</button></div>`;
- el.querySelector('button').onclick=()=>kilat(k)}
+ el.innerHTML=`<div class="kldone"><h3>✓ Kartu kilat selesai</h3><ul>${KL[k].map(c=>`<li>${c.t}</li>`).join('')}</ul><button class="btn" type="button" data-rk="1">🔁 Ulangi kartu kilat</button></div><button class="btn main big2" type="button" data-goto="main">Lanjut main ⭐ ➜</button>`;
+ el.querySelector('[data-rk]').onclick=()=>kilat(k)}
 function kilat(k){const el=$('#k'+k),cards=KL[k];let i=0;
  const draw=()=>{const c=cards[i];
   el.innerHTML=`<div class="kl"><div class="klt"><span>🃏 Kartu ${i+1} dari ${cards.length}</span><span class="kd">${cards.map((_,j)=>`<i class="${j<i?'on':j===i?'cur':''}"></i>`).join('')}</span></div>
@@ -3064,13 +3149,14 @@ function kilat(k){const el=$('#k'+k),cards=KL[k];let i=0;
   const m=el.querySelector('.klm');
   run(el.querySelector('.klg'),c.c,false,()=>{m.textContent=PRAISE();const last=i===cards.length-1;
    el.querySelector('.kla').innerHTML=`<button class="btn main kln" type="button">${last?'Selesai! Buka permainan 🎮':'Kartu berikutnya ➜'}</button>`;
-   const nb=el.querySelector('.kln');nb.focus({preventScroll:true});
-   nb.onclick=()=>{if(!last){i++;draw();el.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});return}
+   const nb=el.querySelector('.kln');nb.focus({preventScroll:true});nb.scrollIntoView({behavior:RM?'auto':'smooth',block:'center'});
+   nb.onclick=()=>{if(!last){i++;draw();$('#m'+k).scrollIntoView({behavior:'auto',block:'start'});return}
     if(!kdone.includes(k)){kdone.push(k);store.set(KLK,JSON.stringify(kdone))}
-    kilatDone(k);unlock(k);toast('Permainan terbuka! Ayo dapatkan bintangnya, Barra!');$('#lk'+k).parentNode.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'})}},
+    kilatDone(k);stepTo(k,'main');toast('Permainan terbuka! Ayo dapatkan bintangnya, Barra!')}},
    msg=>{m.textContent='Belum tepat. Lihat lagi kartunya ya, lalu coba lagi!';const kc=el.querySelector('.klc');kc.classList.remove('shake');void kc.offsetWidth;kc.classList.add('shake');if(c.s||c.t)speak(c.s||strip(c.t))})};
  draw()}
-for(const k of Object.keys(KL).map(Number)){if(kdone.includes(k)){kilatDone(k);unlock(k)}else kilat(k)}
+for(const k of Object.keys(KL).map(Number)){if(kdone.includes(k))kilatDone(k);else kilat(k)}
+showMap();
 
 /* ===== Pemanasan: masih ingat? (pengulangan berjarak) ===== */
 (function(){const pool=[];kdone.forEach(k=>(KL[k]||[]).forEach(c=>pool.push(c.c)));if(pool.length<3)return;
@@ -3224,7 +3310,7 @@ const NAMES=["", "Huruf hijaiyah", "Harakat", "Al-Fātiḥah", "Al-Ikhlāṣ", "
 $('#chips').innerHTML=NAMES.slice(1).map((n,i)=>`<button class="chip" data-go="${i+1}">${i+1}. ${n}</button>`).join('');
 let done=[];try{done=JSON.parse(store.get('qh-done')||'[]')}catch(e){}
 function paint(){$('#pc').textContent=done.length;$('#ps').innerHTML=NAMES.slice(1).map((_,i)=>`<i class="${done.includes(i+1)?'on':''}"></i>`).join('');for(let k=1;k<=7;k++){const c=$('#m'+k),on=done.includes(k);c.classList.toggle('done',on);c.querySelector('.badge').textContent=on?'Dapat bintang!':'Belum dapat bintang';document.querySelector(`[data-go="${k}"]`).classList.toggle('done',on)}}
-function award(k){if(done.includes(k))return;done.push(k);store.set('qh-done',JSON.stringify(done));paint();fanfare();toast(done.length===7?'MasyaAllah, Barra! Semua 7 bintang terkumpul!':'Hore! Barra dapat bintang materi '+k+'!')}
+function award(k){onAward(k);if(done.includes(k))return;done.push(k);store.set('qh-done',JSON.stringify(done));paint();fanfare();toast(done.length===7?'MasyaAllah, Barra! Semua 7 bintang terkumpul!':'Hore! Barra dapat bintang materi '+k+'!')}
 paint();
 
 /* tab */
@@ -3248,10 +3334,37 @@ function speak(t){if(!canSpeak)return;try{const u=new SpeechSynthesisUtterance(t
 SIG.addEventListener('abort',()=>{try{speechSynthesis.cancel()}catch(e){}});
 const strip=h=>String(h).replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/&gt;/g,'>').replace(/&lt;/g,'<').replace(/\s+/g,' ').trim();
 const started4=new Set();
+/* ===== mode fokus: satu materi, satu langkah ===== */
+const MK=Object.keys(KL).map(Number),hasIntro=k=>!!document.querySelector(`#m${k} [data-s="intro"]`);
+let curK=0;
+function stepTo(k,st){const m=$('#m'+k);
+ m.querySelectorAll('.st').forEach(x=>{x.hidden=x.dataset.s!==st});
+ const ord=['intro','kilat','main'].filter(x=>x!=='intro'||hasIntro(k)),ci=ord.indexOf(st);
+ m.querySelectorAll('.stp').forEach(b=>{const i=ord.indexOf(b.dataset.st);b.classList.toggle('cur',i===ci);b.classList.toggle('done',i<ci||(b.dataset.st==='kilat'&&kdone.includes(k))||(b.dataset.st==='main'&&done.includes(k)));b.disabled=b.dataset.st==='main'&&!kdone.includes(k)});
+ if(st==='main')unlock(k);m.scrollIntoView({behavior:'auto',block:'start'})}
+function openK(k){curK=k;$('#map').hidden=true;$('#hf').hidden=true;MK.forEach(j=>{$('#m'+j).hidden=j!==k});
+ stepTo(k,kdone.includes(k)?'main':hasIntro(k)?'intro':'kilat');if(done.includes(k))nextBtn(k)}
+function showMap(){const curK0=curK;curK=0;MK.forEach(j=>{$('#m'+j).hidden=true});$('#hf').hidden=true;$('#map').hidden=false;drawMap();if(curK0)$('#map').scrollIntoView({behavior:'auto',block:'start'})}
+function nextK(){return MK.find(k=>!done.includes(k))||0}
+function drawMap(){const nx=nextK();
+ $('#path').innerHTML=MK.map(k=>{const ok=done.includes(k),go=k===nx,lock=!ok&&!go&&MK.indexOf(k)>MK.indexOf(nx);
+  const col=getComputedStyle(document.querySelector(`#m${k} .num`)).backgroundColor;
+  return `<button type="button" class="pt ${ok?'ok':go?'go':lock?'lock':''}" data-k="${k}"><span class="pn" style="background:${col}">${k}</span><span class="px">${esc(NAMES[k])}</span><span class="ps">${ok?'⭐ Selesai':go?'▶ Mulai':lock?'🔒':'Buka'}</span></button>`}).join('')}
+function nextBtn(k){const i=MK.indexOf(k),n=MK[i+1];
+ $('#nx'+k).innerHTML=`<div class="nxb"><p>⭐ Hebat, Barra! Materi ${k} selesai.</p>${n?`<button class="btn main big2" type="button" data-open="${n}">Lanjut ke materi ${n} ➜</button>`:`<button class="btn main big2" type="button" data-v="latihan">Semua materi selesai! Ayo latihan soal ✏️</button>`}<button class="btn" type="button" data-map="1" style="margin-top:8px">Kembali ke peta</button></div>`}
+function onAward(k){setTimeout(()=>nextBtn(k),300)}
+document.addEventListener('click',e=>{
+ const pt=e.target.closest('#path .pt');if(pt){if(pt.classList.contains('lock')){shake(pt);toast('Selesaikan materi '+nextK()+' dulu ya, Barra!');return}tone(560,.1);openK(+pt.dataset.k);return}
+ if(e.target.closest('[data-map]')){showMap();return}
+ const op=e.target.closest('[data-open]');if(op){openK(+op.dataset.open);return}
+ const gt=e.target.closest('[data-goto]');if(gt&&curK){stepTo(curK,gt.dataset.goto);return}
+ const sp=e.target.closest('.stp');if(sp&&curK&&!sp.disabled){stepTo(curK,sp.dataset.st);return}
+ if(e.target.closest('[data-hfopen]')){$('#map').hidden=true;$('#hf').hidden=false;$('#hf').scrollIntoView({block:'start'})}
+},{signal:SIG});
 function unlock(k){$('#lk'+k).hidden=true;$('#g'+k).hidden=false;if(!started4.has(k)){started4.add(k);seq(k,GM[k])}}
 function kilatDone(k){const el=$('#k'+k);
- el.innerHTML=`<div class="kldone"><h3>✓ Kartu kilat selesai</h3><ul>${KL[k].map(c=>`<li>${c.t}</li>`).join('')}</ul><button class="btn" type="button">🔁 Ulangi kartu kilat</button></div>`;
- el.querySelector('button').onclick=()=>kilat(k)}
+ el.innerHTML=`<div class="kldone"><h3>✓ Kartu kilat selesai</h3><ul>${KL[k].map(c=>`<li>${c.t}</li>`).join('')}</ul><button class="btn" type="button" data-rk="1">🔁 Ulangi kartu kilat</button></div><button class="btn main big2" type="button" data-goto="main">Lanjut main ⭐ ➜</button>`;
+ el.querySelector('[data-rk]').onclick=()=>kilat(k)}
 function kilat(k){const el=$('#k'+k),cards=KL[k];let i=0;
  const draw=()=>{const c=cards[i];
   el.innerHTML=`<div class="kl"><div class="klt"><span>🃏 Kartu ${i+1} dari ${cards.length}</span><span class="kd">${cards.map((_,j)=>`<i class="${j<i?'on':j===i?'cur':''}"></i>`).join('')}</span></div>
@@ -3261,13 +3374,14 @@ function kilat(k){const el=$('#k'+k),cards=KL[k];let i=0;
   const m=el.querySelector('.klm');
   run(el.querySelector('.klg'),c.c,false,()=>{m.textContent=PRAISE();const last=i===cards.length-1;
    el.querySelector('.kla').innerHTML=`<button class="btn main kln" type="button">${last?'Selesai! Buka permainan 🎮':'Kartu berikutnya ➜'}</button>`;
-   const nb=el.querySelector('.kln');nb.focus({preventScroll:true});
-   nb.onclick=()=>{if(!last){i++;draw();el.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'});return}
+   const nb=el.querySelector('.kln');nb.focus({preventScroll:true});nb.scrollIntoView({behavior:RM?'auto':'smooth',block:'center'});
+   nb.onclick=()=>{if(!last){i++;draw();$('#m'+k).scrollIntoView({behavior:'auto',block:'start'});return}
     if(!kdone.includes(k)){kdone.push(k);store.set(KLK,JSON.stringify(kdone))}
-    kilatDone(k);unlock(k);toast('Permainan terbuka! Ayo dapatkan bintangnya, Barra!');$('#lk'+k).parentNode.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'})}},
+    kilatDone(k);stepTo(k,'main');toast('Permainan terbuka! Ayo dapatkan bintangnya, Barra!')}},
    msg=>{m.textContent='Belum tepat. Lihat lagi kartunya ya, lalu coba lagi!';const kc=el.querySelector('.klc');kc.classList.remove('shake');void kc.offsetWidth;kc.classList.add('shake');if(c.s||c.t)speak(c.s||strip(c.t))})};
  draw()}
-for(const k of Object.keys(KL).map(Number)){if(kdone.includes(k)){kilatDone(k);unlock(k)}else kilat(k)}
+for(const k of Object.keys(KL).map(Number)){if(kdone.includes(k))kilatDone(k);else kilat(k)}
+showMap();
 
 /* ===== Pemanasan: masih ingat? (pengulangan berjarak) ===== */
 (function(){const pool=[];kdone.forEach(k=>(KL[k]||[]).forEach(c=>pool.push(c.c)));if(pool.length<3)return;
