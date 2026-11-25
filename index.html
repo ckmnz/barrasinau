@@ -1666,6 +1666,35 @@ svg [data-tap]:not(.tapped),.tapwrap svg [data-tap]:not(.tapped){animation:tapGl
 /* ===== model belajar Kartu Kilat ===== */
 .head{flex-wrap:wrap}.head h2{flex:1 1 150px;min-width:0}
 .mc{min-width:84px}
+
+/* ===== header ringkas ===== */
+header .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 14px;padding-top:4px;padding-bottom:8px}
+.home{grid-column:1/-1;min-height:36px;padding-top:4px;font-size:15px}
+.hero{display:contents}
+.hero>div{min-width:0}
+.hero h1{font-size:clamp(21px,3.2vw,30px)!important;line-height:1.15}
+.hero p{font-size:13px!important;margin:2px 0 0!important;opacity:.9}
+.hero svg{width:auto!important;height:64px;max-height:64px!important}
+.prog{margin-top:6px!important;padding:3px 10px!important;font-size:14px}
+.prog i{width:14px!important;height:14px!important}
+.rst{margin-top:6px!important;min-height:34px!important;font-size:12px!important;padding:0 12px!important}
+.tabs{grid-column:1/-1;padding-bottom:0!important;gap:8px!important}
+.tab{min-height:42px!important;font-size:17px!important;padding:0 18px!important}
+/* saat materi dibuka: header jadi satu baris tipis */
+.fx .hero p,.fx .prog,.fx .rst,.fx .hero svg{display:none!important}
+.fx .hero h1{font-size:20px!important}
+.fx header .wrap{grid-template-columns:auto 1fr auto}
+.fx .home{grid-column:auto}
+.fx .tabs{grid-column:auto}
+.fx .tab{min-height:38px!important;font-size:15px!important;padding:0 12px!important}
+@media(max-width:600px){.hero svg{display:none}.fx .hero h1{display:none}.fx header .wrap{grid-template-columns:auto 1fr}.fx .tabs{justify-content:flex-end}}
+/* tablet mendatar: kartu kilat dua kolom */
+@media(min-width:820px) and (orientation:landscape){
+ .kl{display:grid;grid-template-columns:1.1fr 1fr;gap:12px;align-items:start}.klt{grid-column:1/-1;margin:0}.klq{margin-top:0}
+ .klv{font-size:46px}
+ .path{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .hfg{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
 .fbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:-4px 0 10px}
 .btn.bk{min-height:44px;font-size:16px}.fm{font-weight:800;color:var(--muted)}
 .stps{display:flex;gap:6px;margin:4px 0 12px}
@@ -2033,6 +2062,35 @@ svg [data-tap]:not(.tapped),.tapwrap svg [data-tap]:not(.tapped){animation:tapGl
 /* ===== model belajar Kartu Kilat ===== */
 .head{flex-wrap:wrap}.head h2{flex:1 1 150px;min-width:0}
 .mc{min-width:84px}
+
+/* ===== header ringkas ===== */
+header .wrap{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:4px 14px;padding-top:4px;padding-bottom:8px}
+.home{grid-column:1/-1;min-height:36px;padding-top:4px;font-size:15px}
+.hero{display:contents}
+.hero>div{min-width:0}
+.hero h1{font-size:clamp(21px,3.2vw,30px)!important;line-height:1.15}
+.hero p{font-size:13px!important;margin:2px 0 0!important;opacity:.9}
+.hero svg{width:auto!important;height:64px;max-height:64px!important}
+.prog{margin-top:6px!important;padding:3px 10px!important;font-size:14px}
+.prog i{width:14px!important;height:14px!important}
+.rst{margin-top:6px!important;min-height:34px!important;font-size:12px!important;padding:0 12px!important}
+.tabs{grid-column:1/-1;padding-bottom:0!important;gap:8px!important}
+.tab{min-height:42px!important;font-size:17px!important;padding:0 18px!important}
+/* saat materi dibuka: header jadi satu baris tipis */
+.fx .hero p,.fx .prog,.fx .rst,.fx .hero svg{display:none!important}
+.fx .hero h1{font-size:20px!important}
+.fx header .wrap{grid-template-columns:auto 1fr auto}
+.fx .home{grid-column:auto}
+.fx .tabs{grid-column:auto}
+.fx .tab{min-height:38px!important;font-size:15px!important;padding:0 12px!important}
+@media(max-width:600px){.hero svg{display:none}.fx .hero h1{display:none}.fx header .wrap{grid-template-columns:auto 1fr}.fx .tabs{justify-content:flex-end}}
+/* tablet mendatar: kartu kilat dua kolom */
+@media(min-width:820px) and (orientation:landscape){
+ .kl{display:grid;grid-template-columns:1.1fr 1fr;gap:12px;align-items:start}.klt{grid-column:1/-1;margin:0}.klq{margin-top:0}
+ .klv{font-size:46px}
+ .path{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .hfg{grid-template-columns:repeat(4,minmax(0,1fr))}
+}
 .fbar{display:flex;align-items:center;justify-content:space-between;gap:8px;margin:-4px 0 10px}
 .btn.bk{min-height:44px;font-size:16px}.fm{font-weight:800;color:var(--muted)}
 .stps{display:flex;gap:6px;margin:4px 0 12px}
@@ -3106,7 +3164,7 @@ const GM={"1": [{"k": "pg", "q": "<span class=\"big\">⭐⭐⭐⭐⭐⭐</span>A
 const KLK=PRE+'-kl';let kdone=[];try{kdone=JSON.parse(store.get(KLK)||'[]')}catch(e){}
 const canSpeak='speechSynthesis' in window&&'SpeechSynthesisUtterance' in window;
 function speak(t){if(!canSpeak)return;try{const u=new SpeechSynthesisUtterance(t);u.lang='id-ID';u.rate=.85;const v=speechSynthesis.getVoices().find(v=>/^id/i.test(v.lang));if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
-SIG.addEventListener('abort',()=>{try{speechSynthesis.cancel()}catch(e){}});
+SIG.addEventListener('abort',()=>{try{speechSynthesis.cancel()}catch(e){}document.getElementById('app').classList.remove('fx')});
 const strip=h=>String(h).replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/&gt;/g,'>').replace(/&lt;/g,'<').replace(/\s+/g,' ').trim();
 const started4=new Set();
 /* ===== mode fokus: satu materi, satu langkah ===== */
@@ -3117,9 +3175,9 @@ function stepTo(k,st){const m=$('#m'+k);
  const ord=['intro','kilat','main'].filter(x=>x!=='intro'||hasIntro(k)),ci=ord.indexOf(st);
  m.querySelectorAll('.stp').forEach(b=>{const i=ord.indexOf(b.dataset.st);b.classList.toggle('cur',i===ci);b.classList.toggle('done',i<ci||(b.dataset.st==='kilat'&&kdone.includes(k))||(b.dataset.st==='main'&&done.includes(k)));b.disabled=b.dataset.st==='main'&&!kdone.includes(k)});
  if(st==='main')unlock(k);m.scrollIntoView({behavior:'auto',block:'start'})}
-function openK(k){curK=k;$('#map').hidden=true;$('#hf').hidden=true;MK.forEach(j=>{$('#m'+j).hidden=j!==k});
+function openK(k){curK=k;document.getElementById('app').classList.add('fx');$('#map').hidden=true;$('#hf').hidden=true;MK.forEach(j=>{$('#m'+j).hidden=j!==k});
  stepTo(k,kdone.includes(k)?'main':hasIntro(k)?'intro':'kilat');if(done.includes(k))nextBtn(k)}
-function showMap(){const curK0=curK;curK=0;MK.forEach(j=>{$('#m'+j).hidden=true});$('#hf').hidden=true;$('#map').hidden=false;drawMap();if(curK0)$('#map').scrollIntoView({behavior:'auto',block:'start'})}
+function showMap(){const curK0=curK;curK=0;document.getElementById('app').classList.remove('fx');MK.forEach(j=>{$('#m'+j).hidden=true});$('#hf').hidden=true;$('#map').hidden=false;drawMap();if(curK0)$('#map').scrollIntoView({behavior:'auto',block:'start'})}
 function nextK(){return MK.find(k=>!done.includes(k))||0}
 function drawMap(){const nx=nextK();
  $('#path').innerHTML=MK.map(k=>{const ok=done.includes(k),go=k===nx,lock=!ok&&!go&&MK.indexOf(k)>MK.indexOf(nx);
@@ -3134,7 +3192,7 @@ document.addEventListener('click',e=>{
  const op=e.target.closest('[data-open]');if(op){openK(+op.dataset.open);return}
  const gt=e.target.closest('[data-goto]');if(gt&&curK){stepTo(curK,gt.dataset.goto);return}
  const sp=e.target.closest('.stp');if(sp&&curK&&!sp.disabled){stepTo(curK,sp.dataset.st);return}
- if(e.target.closest('[data-hfopen]')){$('#map').hidden=true;$('#hf').hidden=false;$('#hf').scrollIntoView({block:'start'})}
+ if(e.target.closest('[data-hfopen]')){document.getElementById('app').classList.add('fx');$('#map').hidden=true;$('#hf').hidden=false;$('#hf').scrollIntoView({block:'start'})}
 },{signal:SIG});
 function unlock(k){$('#lk'+k).hidden=true;$('#g'+k).hidden=false;if(!started4.has(k)){started4.add(k);seq(k,GM[k])}}
 function kilatDone(k){const el=$('#k'+k);
@@ -3144,7 +3202,7 @@ function kilat(k){const el=$('#k'+k),cards=KL[k];let i=0;
  const draw=()=>{const c=cards[i];
   el.innerHTML=`<div class="kl"><div class="klt"><span>🃏 Kartu ${i+1} dari ${cards.length}</span><span class="kd">${cards.map((_,j)=>`<i class="${j<i?'on':j===i?'cur':''}"></i>`).join('')}</span></div>
   <div class="klc">${c.v?`<div class="klv">${c.v}</div>`:''}<p class="klx">${c.t}</p>${canSpeak?'<button class="btn kls" type="button">🔊 Dengarkan</button>':''}</div>
-  <div class="klq"><p class="klqh">✋ Cek cepat: jawab dari kartu di atas</p><div class="klg"></div><p class="msg klm" aria-live="polite"></p><div class="kla"></div></div></div>`;
+  <div class="klq"><p class="klqh">✋ Cek cepat: jawab dari kartu ini</p><div class="klg"></div><p class="msg klm" aria-live="polite"></p><div class="kla"></div></div></div>`;
   const sp=el.querySelector('.kls');if(sp)sp.onclick=()=>speak(c.s||strip(c.t));
   const m=el.querySelector('.klm');
   run(el.querySelector('.klg'),c.c,false,()=>{m.textContent=PRAISE();const last=i===cards.length-1;
@@ -3331,7 +3389,7 @@ const GM={"1": [{"k": "pg", "q": "<span class=\"ar big\" dir=\"rtl\">د</span>Hu
 const KLK=PRE+'-kl';let kdone=[];try{kdone=JSON.parse(store.get(KLK)||'[]')}catch(e){}
 const canSpeak='speechSynthesis' in window&&'SpeechSynthesisUtterance' in window;
 function speak(t){if(!canSpeak)return;try{const u=new SpeechSynthesisUtterance(t);u.lang='id-ID';u.rate=.85;const v=speechSynthesis.getVoices().find(v=>/^id/i.test(v.lang));if(v)u.voice=v;speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
-SIG.addEventListener('abort',()=>{try{speechSynthesis.cancel()}catch(e){}});
+SIG.addEventListener('abort',()=>{try{speechSynthesis.cancel()}catch(e){}document.getElementById('app').classList.remove('fx')});
 const strip=h=>String(h).replace(/<[^>]+>/g,' ').replace(/&nbsp;/g,' ').replace(/&gt;/g,'>').replace(/&lt;/g,'<').replace(/\s+/g,' ').trim();
 const started4=new Set();
 /* ===== mode fokus: satu materi, satu langkah ===== */
@@ -3342,9 +3400,9 @@ function stepTo(k,st){const m=$('#m'+k);
  const ord=['intro','kilat','main'].filter(x=>x!=='intro'||hasIntro(k)),ci=ord.indexOf(st);
  m.querySelectorAll('.stp').forEach(b=>{const i=ord.indexOf(b.dataset.st);b.classList.toggle('cur',i===ci);b.classList.toggle('done',i<ci||(b.dataset.st==='kilat'&&kdone.includes(k))||(b.dataset.st==='main'&&done.includes(k)));b.disabled=b.dataset.st==='main'&&!kdone.includes(k)});
  if(st==='main')unlock(k);m.scrollIntoView({behavior:'auto',block:'start'})}
-function openK(k){curK=k;$('#map').hidden=true;$('#hf').hidden=true;MK.forEach(j=>{$('#m'+j).hidden=j!==k});
+function openK(k){curK=k;document.getElementById('app').classList.add('fx');$('#map').hidden=true;$('#hf').hidden=true;MK.forEach(j=>{$('#m'+j).hidden=j!==k});
  stepTo(k,kdone.includes(k)?'main':hasIntro(k)?'intro':'kilat');if(done.includes(k))nextBtn(k)}
-function showMap(){const curK0=curK;curK=0;MK.forEach(j=>{$('#m'+j).hidden=true});$('#hf').hidden=true;$('#map').hidden=false;drawMap();if(curK0)$('#map').scrollIntoView({behavior:'auto',block:'start'})}
+function showMap(){const curK0=curK;curK=0;document.getElementById('app').classList.remove('fx');MK.forEach(j=>{$('#m'+j).hidden=true});$('#hf').hidden=true;$('#map').hidden=false;drawMap();if(curK0)$('#map').scrollIntoView({behavior:'auto',block:'start'})}
 function nextK(){return MK.find(k=>!done.includes(k))||0}
 function drawMap(){const nx=nextK();
  $('#path').innerHTML=MK.map(k=>{const ok=done.includes(k),go=k===nx,lock=!ok&&!go&&MK.indexOf(k)>MK.indexOf(nx);
@@ -3359,7 +3417,7 @@ document.addEventListener('click',e=>{
  const op=e.target.closest('[data-open]');if(op){openK(+op.dataset.open);return}
  const gt=e.target.closest('[data-goto]');if(gt&&curK){stepTo(curK,gt.dataset.goto);return}
  const sp=e.target.closest('.stp');if(sp&&curK&&!sp.disabled){stepTo(curK,sp.dataset.st);return}
- if(e.target.closest('[data-hfopen]')){$('#map').hidden=true;$('#hf').hidden=false;$('#hf').scrollIntoView({block:'start'})}
+ if(e.target.closest('[data-hfopen]')){document.getElementById('app').classList.add('fx');$('#map').hidden=true;$('#hf').hidden=false;$('#hf').scrollIntoView({block:'start'})}
 },{signal:SIG});
 function unlock(k){$('#lk'+k).hidden=true;$('#g'+k).hidden=false;if(!started4.has(k)){started4.add(k);seq(k,GM[k])}}
 function kilatDone(k){const el=$('#k'+k);
@@ -3369,7 +3427,7 @@ function kilat(k){const el=$('#k'+k),cards=KL[k];let i=0;
  const draw=()=>{const c=cards[i];
   el.innerHTML=`<div class="kl"><div class="klt"><span>🃏 Kartu ${i+1} dari ${cards.length}</span><span class="kd">${cards.map((_,j)=>`<i class="${j<i?'on':j===i?'cur':''}"></i>`).join('')}</span></div>
   <div class="klc">${c.v?`<div class="klv">${c.v}</div>`:''}<p class="klx">${c.t}</p>${canSpeak?'<button class="btn kls" type="button">🔊 Dengarkan</button>':''}</div>
-  <div class="klq"><p class="klqh">✋ Cek cepat: jawab dari kartu di atas</p><div class="klg"></div><p class="msg klm" aria-live="polite"></p><div class="kla"></div></div></div>`;
+  <div class="klq"><p class="klqh">✋ Cek cepat: jawab dari kartu ini</p><div class="klg"></div><p class="msg klm" aria-live="polite"></p><div class="kla"></div></div></div>`;
   const sp=el.querySelector('.kls');if(sp)sp.onclick=()=>speak(c.s||strip(c.t));
   const m=el.querySelector('.klm');
   run(el.querySelector('.klg'),c.c,false,()=>{m.textContent=PRAISE();const last=i===cards.length-1;
